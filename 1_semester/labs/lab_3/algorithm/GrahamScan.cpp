@@ -16,7 +16,13 @@ struct sort_point_by_polar_angle {
 };
 
 vector<Point> GrahamScan::get_convex_hull(vector<Point> points, AnimationArea *animationArea, sf::RenderTarget &window) {
+    if (points.empty()) return {};
+
     vector<Point> convex_hull;
+
+    animationArea->clearArea(window);
+    animationArea->drawAllPoints(window);
+    animationArea->drawHullPoints(window);
 
     // find the point with the lowest y-coordinate
     Point min_y = points[0];
@@ -51,7 +57,8 @@ vector<Point> GrahamScan::get_convex_hull(vector<Point> points, AnimationArea *a
             convex_hull.pop_back();
         }
         convex_hull.push_back(points[i]);
-        animationArea->render(window);
+        animationArea->clearArea(window);
+        animationArea->drawAllPoints(window);
         AnimationController::drawLines(convex_hull, sf::Color::Red, window);
     }
 

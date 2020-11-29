@@ -9,8 +9,14 @@
 
 using namespace std;
 
-vector<Point> JarvisAndrewAlgorithm::get_convex_hull(vector<Point> points, sf::RenderTarget &window) {
+vector<Point> JarvisAndrewAlgorithm::get_convex_hull(vector<Point> points, AnimationArea *animationArea, sf::RenderTarget &window) {
+    if (points.empty()) return {};
+
     vector<Point> convex_hull;
+
+    animationArea->clearArea(window);
+    animationArea->drawAllPoints(window);
+    animationArea->drawHullPoints(window);
 
     // sort by x and fin max and min Points by x
     sort(points.begin(), points.end(),

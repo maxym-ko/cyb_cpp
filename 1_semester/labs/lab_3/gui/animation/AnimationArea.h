@@ -25,11 +25,21 @@ public:
 
     void render(sf::RenderTarget &window);
 
+    void clearArea(sf::RenderTarget &window);
+
+    void drawAllPoints(sf::RenderTarget &window);
+
+    void drawHullPoints(sf::RenderTarget &window);
+
+    void drawHull(sf::RenderTarget &window);
+
     void start(const std::string& algorithm, sf::RenderTarget &window);
 
     void generate();
 
     void clear();
+
+    void addPoint2Hull(Point point);
 };
 
 

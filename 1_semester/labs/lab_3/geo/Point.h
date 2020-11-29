@@ -30,6 +30,8 @@ public:
     friend std::ostream &operator<<(std::ostream &os, Point point);
 
     bool operator==(const Point& point) const;
+
+    bool operator!=(const Point& point) const;
 };
 
 

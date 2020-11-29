@@ -45,31 +45,46 @@ void AnimationArea::update(sf::Vector2f mouse_pos) {
 }
 
 void AnimationArea::render(sf::RenderTarget &window) {
-    window.draw(boards);
+    clearArea(window);
+    drawAllPoints(window);
+    drawHullPoints(window);
+    drawHull(window);
+}
 
+void AnimationArea::clearArea(sf::RenderTarget &window) {
+    window.draw(boards);
+}
+
+
+void AnimationArea::drawAllPoints(sf::RenderTarget &window) {
     for (Point point : points) {
         AnimationController::drawPoint((float) point.getX(), (float) point.getY(),
                                        2.f, sf::Color(100, 250, 50), window);
     }
+}
 
+void AnimationArea::drawHullPoints(sf::RenderTarget &window) {
+    for (Point point : convex_hull) {
+        AnimationController::drawPoint((float) point.getX(), (float) point.getY(),
+                                       3.f, sf::Color::Red, window);
+    }
+}
+
+void AnimationArea::drawHull(sf::RenderTarget &window) {
     if (!convex_hull.empty()) {
         for (int i = 0; i < convex_hull.size() - 1; i++) {
             AnimationController::drawLine(convex_hull[i], convex_hull[i + 1], sf::Color::Red, window);
-            AnimationController::drawPoint((float) convex_hull[i].getX(), (float) convex_hull[i].getY(),
-                                           2.f, sf::Color::Red, window);
         }
         AnimationController::drawLine(convex_hull[0], convex_hull.back(), sf::Color::Red, window);
-        AnimationController::drawPoint((float) convex_hull.back().getX(), (float) convex_hull.back().getY(),
-                                       2.f, sf::Color::Red, window);
     }
-
 }
 
-void AnimationArea::start(const std::string& algorithm, sf::RenderTarget &window) {
+void AnimationArea::start(const std::string &algorithm, sf::RenderTarget &window) {
+    convex_hull.clear();
     if (algorithm == "1. Kirkpatrick-Seidel algorithm") {
 
     } else if (algorithm == "2. Jarvis-Andrew algorithm") {
-        convex_hull = JarvisAndrewAlgorithm::get_convex_hull(points, window);
+        convex_hull = JarvisAndrewAlgorithm::get_convex_hull(points, this, window);
     } else if (algorithm == "3. Graham scan") {
         convex_hull = GrahamScan::get_convex_hull(points, this, window);
     } else if (algorithm == "4. Recursive algorithm") {
@@ -88,4 +103,8 @@ void AnimationArea::generate() {
 void AnimationArea::clear() {
     convex_hull.clear();
     points.clear();
+}
+
+void AnimationArea::addPoint2Hull(Point point) {
+    convex_hull.push_back(point);
 }

@@ -23,7 +23,7 @@ public:
     // return true if Point c is above line that passed though Point a, Point b
     static bool above_line(Point a, Point b, Point c);
 
-    static vector<Point> get_convex_hull(vector<Point> points, sf::RenderTarget &window);
+    static vector<Point> get_convex_hull(vector<Point> points, AnimationArea *animationArea, sf::RenderTarget &window);
 };
 
 

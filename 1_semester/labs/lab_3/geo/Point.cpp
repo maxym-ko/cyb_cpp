@@ -53,3 +53,7 @@ std::ostream& operator<<(std::ostream& os, Point point)
 bool Point::operator==(const Point &point) const {
     return x == point.x && y == point.y;
 }
+
+bool Point::operator!=(const Point &point) const {
+    return x != point.x || y != point.y;
+}
