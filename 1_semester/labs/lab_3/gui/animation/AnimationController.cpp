@@ -52,19 +52,19 @@ void AnimationController::removeLine(Point a, Point b, sf::RenderTarget &window)
     window.draw(lines);
 }
 
-void AnimationController::animatePoint(float x, float y, float radius, sf::Color color, int duration, sf::RenderTarget &window) {
+void AnimationController::animatePoint(float x, float y, float radius, sf::Color color, unsigned int speed, sf::RenderTarget &window) {
     drawPoint(x, y, radius, color, window);
     ((sf::RenderWindow*) &window)->display();
-    AnimationController::wait(duration);
+    AnimationController::wait(speed);
 }
 
-void AnimationController::animateLine(Point a, Point b, sf::Color color, int duration, sf::RenderTarget &window) {
+void AnimationController::animateLine(Point a, Point b, sf::Color color, unsigned int speed, sf::RenderTarget &window) {
     drawLine(a, b, color, window);
     ((sf::RenderWindow*) &window)->display();
-    AnimationController::wait(duration);
+    AnimationController::wait(speed);
 }
 
-void AnimationController::wait(int msec) {
+void AnimationController::wait(unsigned int msec) {
     std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::milli> time_span{};
     do {

@@ -15,7 +15,7 @@ using namespace std;
 
 class GrahamScan {
 private:
-    static int ccw(Point point1, Point point2, Point point3, sf::RenderTarget &window);
+    static int ccw(Point point1, Point point2, Point point3, unsigned int speed, sf::RenderTarget &window);
 
 public:
     static vector<Point> get_convex_hull(vector<Point> points, AnimationArea *animationArea, sf::RenderTarget &window);

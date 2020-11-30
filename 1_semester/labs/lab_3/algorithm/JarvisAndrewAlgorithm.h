@@ -16,8 +16,8 @@ using namespace std;
 class JarvisAndrewAlgorithm {
 private:
 
-    static vector<Point> get_convex_hull(Point start_point, vector<Point> points, bool looking_for_top,
-                                         sf::Color color, sf::RenderTarget &window);
+    static vector<Point>
+    get_convex_hull(Point start_point, vector<Point> points, bool looking_for_top, sf::RenderTarget &window);
 
 public:
     // return true if Point c is above line that passed though Point a, Point b

@@ -46,6 +46,8 @@ vector<Point> RecursiveAlgorithm::get_top_convex_hull(vector<Point> points, Poin
         return points;
     }
 
+    unsigned int speed = points.size() > 100 ? 10000 / points.size() : 100;
+
     vector<Point> convex_hull;
 
     animationArea->clearArea(window);
@@ -74,7 +76,7 @@ vector<Point> RecursiveAlgorithm::get_top_convex_hull(vector<Point> points, Poin
         double current_area = area(left_point, point, right_point);
         AnimationController::drawLine(left_point, right_point, sf::Color::Green, window);
         AnimationController::drawLine(left_point, point, sf::Color::Green, window);
-        AnimationController::animateLine(point, right_point, sf::Color::Green, 300, window);
+        AnimationController::animateLine(point, right_point, sf::Color::Green, speed, window);
         AnimationController::removeLine(left_point, point, window);
         AnimationController::removeLine(point, right_point, window);
         if (current_area > max_area ||
@@ -111,6 +113,8 @@ vector<Point> RecursiveAlgorithm::get_bottom_convex_hull(vector<Point> points, P
         return points;
     }
 
+    unsigned int speed = points.size() > 100 ? 10000 / points.size() : 100;
+
     vector<Point> convex_hull;
 
     animationArea->clearArea(window);
@@ -140,7 +144,7 @@ vector<Point> RecursiveAlgorithm::get_bottom_convex_hull(vector<Point> points, P
         double current_area = area(left_point, point, right_point);
         AnimationController::drawLine(left_point, right_point, sf::Color::Green, window);
         AnimationController::drawLine(left_point, point, sf::Color::Green, window);
-        AnimationController::animateLine(point, right_point, sf::Color::Green, 300, window);
+        AnimationController::animateLine(point, right_point, sf::Color::Green, speed, window);
         AnimationController::removeLine(left_point, point, window);
         AnimationController::removeLine(point, right_point, window);
         if (current_area > max_area ||

@@ -24,11 +24,11 @@ public:
 
     static void removeLine(Point a, Point b, sf::RenderTarget &window);
 
-    static void animatePoint(float x, float y, float radius, sf::Color color, int duration, sf::RenderTarget &window);
+    static void animatePoint(float x, float y, float radius, sf::Color color, unsigned int speed, sf::RenderTarget &window);
 
-    static void animateLine(Point a, Point b, sf::Color color, int duration, sf::RenderTarget &window);
+    static void animateLine(Point a, Point b, sf::Color color, unsigned int speed, sf::RenderTarget &window);
 
-    static void wait(int msec);
+    static void wait(unsigned int msec);
 };
 
 

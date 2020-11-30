@@ -8,6 +8,7 @@
 #include "../../algorithm/JarvisAndrewAlgorithm.h"
 #include "../../algorithm/GrahamScan.h"
 #include "../../algorithm/RecursiveAlgorithm.h"
+#include "../../algorithm/KirkpatrickSeidelAlgorithm.h"
 
 AnimationArea::AnimationArea(float x, float y, float width, float height, sf::Color outline_color,
                              sf::Color fill_color, float thickness) {
@@ -82,7 +83,7 @@ void AnimationArea::drawHull(sf::RenderTarget &window) {
 void AnimationArea::start(const std::string &algorithm, sf::RenderTarget &window) {
     convex_hull.clear();
     if (algorithm == "1. Kirkpatrick-Seidel algorithm") {
-
+        convex_hull = KirkpatrickSeidelAlgorithm::get_convex_hull(points, this, window);
     } else if (algorithm == "2. Jarvis-Andrew algorithm") {
         convex_hull = JarvisAndrewAlgorithm::get_convex_hull(points, this, window);
     } else if (algorithm == "3. Graham scan") {

@@ -5,6 +5,7 @@
 #include "GrahamScan.h"
 #include "../gui/animation/AnimationController.h"
 #include <cmath>
+#include <iostream>
 
 struct sort_point_by_polar_angle {
     Point min_y;
@@ -17,6 +18,8 @@ struct sort_point_by_polar_angle {
 
 vector<Point> GrahamScan::get_convex_hull(vector<Point> points, AnimationArea *animationArea, sf::RenderTarget &window) {
     if (points.empty()) return {};
+
+    unsigned int speed = points.size() > 50 ? 20000 / points.size() : 200;
 
     vector<Point> convex_hull;
 
@@ -42,7 +45,7 @@ vector<Point> GrahamScan::get_convex_hull(vector<Point> points, AnimationArea *a
     sort(points.begin(), points.end(), comparator);
 
     for (Point point : points) {
-        AnimationController::animateLine(min_y, point, sf::Color::Green, 100, window);
+        AnimationController::animateLine(min_y, point, sf::Color::Cyan, speed / 4, window);
     }
     for (Point point : points) {
         AnimationController::removeLine(min_y, point, window);
@@ -53,7 +56,9 @@ vector<Point> GrahamScan::get_convex_hull(vector<Point> points, AnimationArea *a
     convex_hull.push_back(points[0]);
     for (int i = 1; i < points.size(); i++) {
         while (convex_hull.size() > 1 &&
-               ccw(convex_hull.rbegin()[1], convex_hull.rbegin()[0], points[i], window) <= 0) {
+               ccw(convex_hull.rbegin()[1], convex_hull.rbegin()[0], points[i], speed, window) <= 0) {
+            AnimationController::removeLine(convex_hull.rbegin()[1], convex_hull.rbegin()[0], window);
+            AnimationController::removeLine(convex_hull.rbegin()[0], points[i],window);
             convex_hull.pop_back();
         }
         convex_hull.push_back(points[i]);
@@ -65,11 +70,9 @@ vector<Point> GrahamScan::get_convex_hull(vector<Point> points, AnimationArea *a
     return convex_hull;
 }
 
-int GrahamScan::ccw(Point point1, Point point2, Point point3, sf::RenderTarget &window) {
-    AnimationController::drawLine(point1, point2, sf::Color::Green, window);
-    AnimationController::animateLine(point2, point3, sf::Color::Green, 300, window);
+int GrahamScan::ccw(Point point1, Point point2, Point point3, unsigned int speed, sf::RenderTarget &window) {
     AnimationController::drawLine(point1, point2, sf::Color::Blue, window);
-    AnimationController::animateLine(point2, point3, sf::Color::Blue, 300, window);
+    AnimationController::animateLine(point2, point3, sf::Color::Blue, speed, window);
     return (point2.getX() - point1.getX()) * (point3.getY() - point1.getY()) -
            (point2.getY() - point1.getY()) * (point3.getX() - point1.getX());
 }
