@@ -70,9 +70,9 @@ vector<Point> GrahamScan::get_convex_hull(vector<Point> points, AnimationArea *a
     return convex_hull;
 }
 
-int GrahamScan::ccw(Point point1, Point point2, Point point3, unsigned int speed, sf::RenderTarget &window) {
-    AnimationController::drawLine(point1, point2, sf::Color::Blue, window);
-    AnimationController::animateLine(point2, point3, sf::Color::Blue, speed, window);
-    return (point2.getX() - point1.getX()) * (point3.getY() - point1.getY()) -
-           (point2.getY() - point1.getY()) * (point3.getX() - point1.getX());
+int GrahamScan::ccw(Point a, Point b, Point c, unsigned int speed, sf::RenderTarget &window) {
+    AnimationController::drawLine(a, b, sf::Color::Blue, window);
+    AnimationController::animateLine(b, c, sf::Color::Blue, speed, window);
+    return (b.getX() - a.getX()) * (c.getY() - a.getY()) -
+           (b.getY() - a.getY()) * (c.getX() - a.getX());
 }
