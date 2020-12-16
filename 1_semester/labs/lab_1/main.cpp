@@ -28,42 +28,59 @@ int main() {
     cin >> type;
 
     RandomGenerator *generator;
+    int count = 0;
     int min = 0, max = 1;
-    switch (type) {
-        case 1:
-            generator = new LinearCongruentialGenerator();
-            break;
-        case 2:
-            generator = new QuadraticCongruentialGenerator();
-            break;
-        case 3:
-            Histogram::printStat(new FibonacciNumbersGenerator, 0, 1);
-            break;
-        case 4:
-            Histogram::printStat(new InverseCongruentSequenceGenerator(), 0, 1);
-            break;
-        case 5:
-            Histogram::printStat(new UnionMethodGenerator, 0, 1);
-            break;
-        case 6:
-            Histogram::printStat(new SigmaMethodGenerator(), -3, 3, 1000);
-            break;
-        case 7:
-            Histogram::printStat(new PolarCoordinateMethodGenerator(), -3, 3);
-            break;
-        case 8:
-            Histogram::printStat(new RelationMethodGenerator(), -3, 3);
-            break;
-        case 9:
-            Histogram::printStat(new LogarithmMethodGenerator(), 0, 100);
-            break;
-        case 10:
-            Histogram::printStat(new ArensMethodGenerator(), 0, 100);
-            break;
-        default:
-            cout << "Wrong input!!!\nOnly 1-10 requires";
+    while (type != 0) {
+        min = 0;
+        max = 1;
+        switch (type) {
+            case 1:
+                generator = new LinearCongruentialGenerator();
+                break;
+            case 2:
+                generator = new QuadraticCongruentialGenerator();
+                break;
+            case 3:
+                generator = new FibonacciNumbersGenerator();
+                break;
+            case 4:
+                generator = new InverseCongruentSequenceGenerator();
+                break;
+            case 5:
+                generator = new UnionMethodGenerator();
+                break;
+            case 6:
+                generator = new SigmaMethodGenerator();
+                min = -3;
+                max = 3;
+                count = 1000;
+                break;
+            case 7:
+                generator = new PolarCoordinateMethodGenerator();
+                min = -3;
+                max = 3;
+                break;
+            case 8:
+                generator = new RelationMethodGenerator();
+                min = -3;
+                max = 3;
+                break;
+            case 9:
+                generator = new LogarithmMethodGenerator();
+                max = 100;
+                break;
+            case 10:
+                generator = new ArensMethodGenerator();
+                max = 100;
+                break;
+            default:
+                cout << "Wrong input!!!\nOnly 1-10 requires";
+        }
+        Histogram::printStat(generator, min, max, count);
+        cout << endl;
+
+        cin >> type;
     }
-    Histogram::printStat(generator, min, max);
 
     return 0;
 }
